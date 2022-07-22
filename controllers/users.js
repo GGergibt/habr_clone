@@ -2,7 +2,7 @@ import {query} from '../connectDB.js';
 
 import {generateAccessToken} from '../utils/generateJWT.js';
 
-import {hashPassword, isPasswordValid} from '../utils/hashPassword.js';
+import {hashPassword} from '../utils/hashPassword.js';
 
 
 export const createUser = async (req, res) => {
@@ -22,4 +22,10 @@ export const createUser = async (req, res) => {
 		     }
 
 	}
+
+export const loginUser = async (req, res) => {
+	const token = await generateAccessToken(req.body.username)
+	await res.json({"token": token})
+
+}
 
