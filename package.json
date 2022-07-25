@@ -8,7 +8,8 @@
     "serve": "nodemon index.js",
     "run": "node index.js",
     "migrate": "db-migrate up",
-    "migrateDown": "db-migrate down"
+    "migrateDown": "db-migrate down",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": "",
