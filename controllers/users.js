@@ -1,4 +1,4 @@
-import {query} from '../connectDB.js';
+import {query} from '../db/connectDB.js';
 
 import {generateAccessToken} from '../utils/generateJWT.js';
 

@@ -1,4 +1,4 @@
-import {query} from '../connectDB.js';
+import {query} from '../db/connectDB.js';
 import bcrypt from 'bcrypt';
 
 export const validateEmail = async (req, res, next) => {

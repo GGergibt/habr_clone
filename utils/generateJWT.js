@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import {query} from '../connectDB.js'
+import {query} from '../db/connectDB.js'
 
 // export const generateAccessToken = async (name) => {
 // 	return await jwt.sign({username: name}, process.env.TOKEN_SECRET, { expiresIn: '180000s' });
