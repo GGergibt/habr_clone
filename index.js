@@ -22,3 +22,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
 	console.log(`server has been started on ${PORT} port...`)
 })
+export default app

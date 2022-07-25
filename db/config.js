@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+
+dotenv.config()
 export const config = {
 	create_db: {
 		host: process.env.DB_HOST,
