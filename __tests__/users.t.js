@@ -1,4 +1,3 @@
-process.env['DB_NAME'] = 'test_express_db';
 
 import request from 'supertest';
 
@@ -8,24 +7,29 @@ import {user_table} from '../models.js';
 import {createDB, createTables, getSession} from '../db/utils.js';
 
 const connectionCreate = await createDB()
+///creaing db. db_name gets from envExport.js which export mock env values via jest config
 
 const connection = await getSession()
 
 
 
-
-
 createTables(connection)
+///create tables in created mock database
 
-const user_model = {
+
+const userModel = {
 	username: "user",
 	password: "123",
 	email: "user@ex.com"
 }
+const userModelWithoutEmail = {
+	username: "user",
+	password: "123"
+}
 
 const emailValidationError = async (email) => {
-	user_model.email = email
-	const res = await request(app).post('/api/users/create').send(user_model)
+	userModel.email = email
+	const res = await request(app).post('/api/users/create').send(userModel)
 	expect(res.statusCode).toBe(400);
 	expect(res.body.msg).toBeTruthy()
 	expect(res.body.msg).toBe("not valid email")
@@ -38,40 +42,63 @@ const emptyFieldError = async (model) => {
 	expect(res.body.msg).toBe("fields required")
 
 }
+describe('test users routes', () => {
+	describe('create user route', () => {
+		test('create user', async () => {
+			const res = await request(app).post('/api/users/create').send(userModel)
+			expect(res.statusCode).toBe(201);
+			expect(res.body.token).toBeTruthy()
 
-describe('test creating user route', () => {
-	test('create user', async () => {
-		const res = await request(app).post('/api/users/create').send(user_model)
-		expect(res.statusCode).toBe(201);
-		expect(res.body.token).toBeTruthy()
+		})
 
+		test('catch duplicate user', async () => {
+			const res = await request(app).post('/api/users/create').send(userModel)
+			expect(res.statusCode).toBe(400);
+			expect(res.body.msg).toBeTruthy()
+			expect(res.body.msg).toBe("duplicate error. already exists")
+		
+
+		})
+		test('catch empty field error', async () => {
+			userModel.password = ""
+
+			await emptyFieldError(userModel)
+			userModel.password = "123"
+			await emptyFieldError(userModelWithoutEmail)
+
+		})
+		test ('catch validation email field error', async () => {
+			await emailValidationError('jsfsd')
+			await emailValidationError('jsfs.')
+			await emailValidationError('jsdfsdf@s:')
+
+		})
 	})
 
-	test('catch duplicate user', async () => {
-		const res = await request(app).post('/api/users/create').send(user_model)
-		expect(res.statusCode).toBe(400);
-		expect(res.body.msg).toBeTruthy()
-		expect(res.body.msg).toBe("duplicate error. already exists")
-	
+	describe('login route', () => {
+		///login testing based on user that has been creating in create route testing. So for correct work must testing create route first
+		test('login user', async () => {
+			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			expect(res.statusCode).toBe(200)
+			expect(res.body.token).toBeTruthy()
 
-	})
-	test('catch empty field error', async () => {
-		user_model.password = ""
+		})
+		test('catch not exists login error', async () => {
+			userModelWithoutEmail.username = "jfds"
+			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			expect(res.statusCode).toBe(404)
+			expect(res.body.msg).toBeTruthy()
+			expect(res.body.msg).toBe("user does not exist")
+		})
+		test('catch not valid password error', async () => {
+			userModelWithoutEmail.username = "user"
+			userModelWithoutEmail.password = "user"
+			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			expect(res.statusCode).toBe(400)
+			expect(res.body.msg).toBeTruthy()
+			expect(res.body.msg).toBe("password authentication failed")
 
-		await emptyFieldError(user_model)
-		user_model.password = "123"
-		const modelWithoutEmail = {
-			username: "fsdefs",
-			password: "123"
-		}
-		await emptyFieldError(modelWithoutEmail)
-
-	})
-	test ('catch validation email field error', async () => {
-		await emailValidationError('jsfsd')
-		await emailValidationError('jsfs.')
-		await emailValidationError('jsdfsdf@s:')
-
+		})
 	})
 })
 
