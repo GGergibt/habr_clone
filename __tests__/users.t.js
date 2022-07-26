@@ -20,7 +20,7 @@ createTables(connection)
 const userModel = {
 	username: "user",
 	password: "123",
-	email: "user@ex.com"
+	email: "userf@ex.com"
 }
 const userModelWithoutEmail = {
 	username: "user",
@@ -42,7 +42,9 @@ const emptyFieldError = async (model) => {
 	expect(res.body.msg).toBe("fields required")
 
 }
+
 describe('test users routes', () => {
+
 	describe('create user route', () => {
 		test('create user', async () => {
 			const res = await request(app).post('/api/users/create').send(userModel)
@@ -102,7 +104,3 @@ describe('test users routes', () => {
 	})
 })
 
-afterAll(done => {
-  connectionCreate.execute(`DROP DATABASE ${process.env.DB_NAME}`)
-  done()
-})

@@ -1,4 +1,6 @@
 const config = {
-  setupFiles: ["<rootDir>/envExport.js"]
+  setupFiles: ["<rootDir>/jestSetup/envExport.js"],
+  // setupFilesAfterEnv: ["<rootDir>/setupTests.js"]
+  globalTeardown: "<rootDir>/jestSetup/teardownJest.js"
 }
 export default config
