@@ -12,7 +12,7 @@ const router = Router()
 await router.post("/login", isPasswordValid, loginUser)
 
 
-await router.post("/create", validateEmail, validateUserFields, createUser)
+await router.post("/create", validateUserFields, validateEmail, createUser)
 
 
 export default router
