@@ -1,1 +1,1 @@
-process.env['DB_NAME']='test_express_db'
+process.env['DB_NAME']='test_habr_clone'

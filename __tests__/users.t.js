@@ -1,21 +1,6 @@
-
 import request from 'supertest';
 
-import app from '../index.js';
-import {user_table} from '../models.js';
-
-import {createDB, createTables, getSession} from '../db/utils.js';
-
-const connectionCreate = await createDB()
-///creaing db. db_name gets from envExport.js which export mock env values via jest config
-
-const connection = await getSession()
-
-
-
-createTables(connection)
-///create tables in created mock database
-
+import app from '../app.js';
 
 const userModel = {
 	username: "user",
