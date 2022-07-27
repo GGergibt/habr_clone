@@ -7,8 +7,8 @@ import postRouter from './posts.js'
 
 const router = Router()
 
-await router.use("/users", userRouter)
-await router.use("/posts", postRouter)
+await router.use("/user", userRouter)
+await router.use("/post", postRouter)
 
 
 
