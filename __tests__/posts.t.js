@@ -44,17 +44,17 @@ describe('test posts routes', () => {
 	})
 	describe('get posts', () => {
 		test('get all post', async () => {
-			const response = await request(app).post("/api/post/all")
+			const response = await request(app).get("/api/post/all")
 			expect(response.statusCode).toBe(200)
-			expect(response.posts).toBeTruthy()
+			expect(response.body.posts).toBeTruthy()
 
 
 
 		})
 		test('get post', async () => {
-			const response = await request(app).post("/api/post/1")
+			const response = await request(app).get("/api/post/1")
 			expect(response.statusCode).toBe(200)
-			expect(response.body.title).toBe('sdfsfuser')
+			expect(response.body.post.title).toBe('sdfsfuser')
 		})
 	})
 })
