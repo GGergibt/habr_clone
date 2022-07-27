@@ -6,3 +6,15 @@ export const createPost = async(req, res) => {
 	res.status(201).json({"msg": "created"})
 
 }
+
+export const getPost = async(req, res) => {
+	const response = await query(`SELECT * FROM posts WHERE id=${req.params.id}`)
+	res.json({post: response[0]})
+	res.end()
+}
+
+export const allPosts = async(req, res) => {
+	const response = await query('SELECT * FROM posts')
+	res.json({posts: response})
+	res.end()
+}

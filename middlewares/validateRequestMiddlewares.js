@@ -45,3 +45,13 @@ export const isPasswordValid = async (req, res, next) => {
 
 }
 
+export const validatePostFields = async (req, res, next) => {
+	if (!req.body.content || !req.body.title) {
+		await res.status(400).json({"msg": "fields required"})
+	}
+	else {
+		next()
+	}
+
+}
+
