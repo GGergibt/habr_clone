@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
 
 	} catch(err){
 		if (err.code === 'ER_DUP_ENTRY') {
-			await res.status(400).send("duplicate error. already exists")
+			await res.status(400).json({"msg": "duplicate error. already exists"})
 
 			await res.end()
 			}
