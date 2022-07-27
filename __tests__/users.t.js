@@ -14,14 +14,14 @@ const userModelWithoutEmail = {
 
 const emailValidationError = async (email) => {
 	userModel.email = email
-	const res = await request(app).post('/api/users/create').send(userModel)
+	const res = await request(app).post('/api/user/create').send(userModel)
 	expect(res.statusCode).toBe(400);
 	expect(res.body.msg).toBeTruthy()
 	expect(res.body.msg).toBe("not valid email")
 }
 
 const emptyFieldError = async (model) => {
-	const res = await request(app).post('/api/users/create').send(model)
+	const res = await request(app).post('/api/user/create').send(model)
 	expect(res.statusCode).toBe(400)
 	expect(res.body.msg).toBeTruthy()
 	expect(res.body.msg).toBe("fields required")
@@ -32,14 +32,14 @@ describe('test users routes', () => {
 
 	describe('create user route', () => {
 		test('create user', async () => {
-			const res = await request(app).post('/api/users/create').send(userModel)
+			const res = await request(app).post('/api/user/create').send(userModel)
 			expect(res.statusCode).toBe(201);
 			expect(res.body.token).toBeTruthy()
 
 		})
 
 		test('catch duplicate user', async () => {
-			const res = await request(app).post('/api/users/create').send(userModel)
+			const res = await request(app).post('/api/user/create').send(userModel)
 			expect(res.statusCode).toBe(400);
 			expect(res.body.msg).toBeTruthy()
 			expect(res.body.msg).toBe("duplicate error. already exists")
@@ -65,14 +65,14 @@ describe('test users routes', () => {
 	describe('login route', () => {
 		///login testing based on user that has been creating in create route testing. So for correct work must testing create route first
 		test('login user', async () => {
-			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			const res = await request(app).post('/api/user/login').send(userModelWithoutEmail)
 			expect(res.statusCode).toBe(200)
 			expect(res.body.token).toBeTruthy()
 
 		})
 		test('catch not exists login error', async () => {
 			userModelWithoutEmail.username = "jfds"
-			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			const res = await request(app).post('/api/user/login').send(userModelWithoutEmail)
 			expect(res.statusCode).toBe(404)
 			expect(res.body.msg).toBeTruthy()
 			expect(res.body.msg).toBe("user does not exist")
@@ -80,7 +80,7 @@ describe('test users routes', () => {
 		test('catch not valid password error', async () => {
 			userModelWithoutEmail.username = "user"
 			userModelWithoutEmail.password = "user"
-			const res = await request(app).post('/api/users/login').send(userModelWithoutEmail)
+			const res = await request(app).post('/api/user/login').send(userModelWithoutEmail)
 			expect(res.statusCode).toBe(400)
 			expect(res.body.msg).toBeTruthy()
 			expect(res.body.msg).toBe("password authentication failed")
