@@ -57,4 +57,24 @@ describe('test posts routes', () => {
 			expect(response.body.post.title).toBe('sdfsfuser')
 		})
 	})
+	describe('likes test', () => {
+		test('like post', async () => {
+			const response = await request(app).post("/api/post/1/like").set(tokenAuth)
+			expect(response.statusCode).toBe(201)
+			expect(response.body.msg).toBe('like put')
+
+		})
+
+		test('get likes counter', async () => {
+			const response = await request(app).post("/api/post/1/likes_countes")
+			expect(response.statusCode).toBe(201)
+			expect(response.body.count).toBe(1)
+		})
+
+		test('remove like', async () => {
+			const response = await request(app).post("/api/post/1/like").set(tokenAuth)
+			expect(response.statusCode).toBe(201)
+			expect(response.body.msg).toBe('like removed')
+		})
+	})
 })
