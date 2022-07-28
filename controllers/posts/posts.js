@@ -1,4 +1,4 @@
-import {query} from '../db/connectDB.js';
+import {query} from '../../db/connectDB.js';
 
 export const createPost = async(req, res) => {
 	const response = await query(`INSERT INTO posts(title, content, author_id) VALUES('${req.body.title}', '${req.body.content}', '${req.user.id}')`)

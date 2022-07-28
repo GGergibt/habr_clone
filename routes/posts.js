@@ -1,5 +1,6 @@
 import {Router} from 'express';
-import {createPost, getPost, allPosts, getLikesCount, likePost} from '../controllers/posts.js'
+import {createPost, getPost, allPosts} from '../controllers/posts/posts.js'
+import {getLikesCount, likePost} from '../controllers/posts/likes.js'
 import {authenticateToken} from '../middlewares/jwtMiddlewares.js'
 import {validatePostFields} from '../middlewares/validateRequestMiddlewares.js';
 import {hasUserLike} from '../middlewares/likesMiddlewares.js'
