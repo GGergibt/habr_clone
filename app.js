@@ -2,7 +2,7 @@ import express from 'express'
 
 
 
-import router from './routes/servers.js'
+import router from './routes/mainRouter.js'
 
 const app = express()
 
