@@ -2,7 +2,7 @@ import {config} from './config.js';
 
 import mysql from 'mysql2/promise';
 
-import {posts, user_table} from '../models.js';
+import {posts, user_table, likes_of_posts} from '../models.js';
 
 export const createDB = async () => {
 	console.log(process.env.DB_NAME, "create")
@@ -18,5 +18,6 @@ export const getSession = async () => {
 export const createTables = async (connection) => {
 	await connection.execute(user_table)
 	await connection.execute(posts)
+	await connection.execute(likes_of_posts)
 
 }
