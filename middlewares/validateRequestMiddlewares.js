@@ -55,3 +55,19 @@ export const validatePostFields = async (req, res, next) => {
 
 }
 
+export const isUserExists = async(req, res, next) => {
+	if(!req.params.id) {
+		await res.status(400).json({"msg": "id required"})
+	}
+	else {
+		const response = await query(`SELECT username FROM user_table WHERE id=${req.params.id}`)	
+		if (response.length > 0) {
+			req.user = response[0]
+			next()
+		}
+		else{
+		      res.status(404).json({"msg": "user does not exist"})
+		}
+	}
+}
+
