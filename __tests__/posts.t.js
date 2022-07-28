@@ -66,14 +66,13 @@ describe('test posts routes', () => {
 		})
 
 		test('get likes counter', async () => {
-			const response = await request(app).post("/api/post/1/likes_countes")
-			expect(response.statusCode).toBe(201)
+			const response = await request(app).get("/api/post/1/likes_count")
+			expect(response.statusCode).toBe(200)
 			expect(response.body.count).toBe(1)
 		})
 
 		test('remove like', async () => {
 			const response = await request(app).post("/api/post/1/like").set(tokenAuth)
-			expect(response.statusCode).toBe(201)
 			expect(response.body.msg).toBe('like removed')
 		})
 	})
