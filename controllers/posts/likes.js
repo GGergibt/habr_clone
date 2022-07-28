@@ -20,3 +20,13 @@ export const likePost = async(req, res) => {
 		res.end()
 	}
 }
+
+export const isLikedAlready = async(req, res) => {
+	if (req.hasLike) {
+		res.status(200).json({"has_like": true})
+	}
+	else {
+		res.status(200).json({"has_like": false})
+	}
+}
+
