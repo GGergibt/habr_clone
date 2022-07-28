@@ -8,6 +8,7 @@ export const createPost = async(req, res) => {
 }
 
 export const getPost = async(req, res) => {
+	console.log("dsd")
 	const response = await query(`SELECT * FROM posts WHERE id=${req.params.id}`)
 	res.json({post: response[0]})
 	res.end()
@@ -26,8 +27,7 @@ export const getLikesCount = async(req, res) => {
 }
 
 export const likePost = async(req, res) => {
-	const checkUserHasLike = await query(`SELECT * FROM likes_of_posts WHERE user_id=${req.user.id} and post_id=${req.params.id}`)
-	if (checkUserHasLike.length > 0) {
+	if (req.hasLike) {
 		const response = await query(`DELETE FROM likes_of_posts WHERE user_id=${req.user.id} and post_id=${req.params.id}`)
 		res.status(200).json({"msg": "like removed"})
 		res.end()
@@ -39,3 +39,4 @@ export const likePost = async(req, res) => {
 		res.end()
 	}
 }
+
