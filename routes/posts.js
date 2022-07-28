@@ -4,22 +4,15 @@ import {getLikesCount, likePost, isLikedAlready} from '../controllers/posts/like
 import {authenticateToken} from '../middlewares/jwtMiddlewares.js'
 import {validatePostFields} from '../middlewares/validateRequestMiddlewares.js';
 import {hasUserLike} from '../middlewares/likesMiddlewares.js'
+import likesRouter from './posts/likes.js'
+import postRouter from './posts/posts.js'
 
 
 const router = Router()
 
 
-router.post("/create", authenticateToken, validatePostFields, createPost)
 
-router.get("/all", allPosts)
-
-router.post("/:id/like", authenticateToken, hasUserLike, likePost)
-
-router.get("/:id/is_liked", authenticateToken, hasUserLike, isLikedAlready)
-
-router.get("/:id/likes_count", getLikesCount)
-
-router.get("/:id", getPost)
-
+router.use(likesRouter)
+router.use(postRouter)
 
 export default router
