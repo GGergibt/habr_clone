@@ -75,5 +75,10 @@ describe('test posts routes', () => {
 			const response = await request(app).post("/api/post/1/like").set(tokenAuth)
 			expect(response.body.msg).toBe('like removed')
 		})
+		test('is user like this post', async () => {
+			const response = await request(app).get("/api/post/1/is_liked").set(tokenAuth)
+			expect(response.statusCode).toBe(200)
+			expect(response.body.has_like).not.toBeTruthy()
+		})
 	})
 })
