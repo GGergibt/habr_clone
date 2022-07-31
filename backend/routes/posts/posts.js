@@ -15,11 +15,6 @@ router.get("/all", allPosts)
 
 router.get("/:id", getPost)
 
-router.post("/test_upload", upload.single('file'), (req, res) => {
-	console.log(req.name)
-	res.send("OK")
-})
-
 
 
 export default router
