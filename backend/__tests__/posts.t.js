@@ -40,7 +40,6 @@ describe('test posts routes', () => {
 			expect(response.text).toBe("Unauthorized")
 
 		})
-
 	})
 	describe('get posts', () => {
 		test('get all post', async () => {
@@ -55,6 +54,9 @@ describe('test posts routes', () => {
 			const response = await request(app).get("/api/post/1")
 			expect(response.statusCode).toBe(200)
 			expect(response.body.post.title).toBe('sdfsfuser')
+			expect(response.body.post.content).toBeTruthy()
+			expect(response.body.post.author).toBeTruthy()
+			expect(response.body.post.created_at).toBeTruthy()
 		})
 	})
 	describe('likes test', () => {
