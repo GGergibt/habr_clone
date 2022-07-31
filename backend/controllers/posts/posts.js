@@ -28,3 +28,10 @@ export const allPosts = async(req, res) => {
 	res.json({posts: response})
 	res.end()
 }
+
+
+export const deletePost = async(req, res) => {
+	const response = await query(`DELETE FROM posts WHERE id=${req.params.id}`)
+	res.json({msg: "sucessfull deleting"})
+	res.end()
+}
