@@ -24,7 +24,7 @@ export const getPost = async(req, res) => {
 }
 
 export const allPosts = async(req, res) => {
-	const response = await query('SELECT * FROM posts')
+	const response = await query('SELECT title, content, image_destination, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id')
 	res.json({posts: response})
 	res.end()
 }
