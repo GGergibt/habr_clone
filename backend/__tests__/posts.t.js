@@ -41,7 +41,7 @@ describe('test posts routes', () => {
 
 		})
 	})
-	describe('get posts', () => {
+	describe('get routes of posts', () => {
 		test('get all post', async () => {
 			const response = await request(app).get("/api/post/all")
 			expect(response.statusCode).toBe(200)
@@ -57,6 +57,26 @@ describe('test posts routes', () => {
 			expect(response.body.post.content).toBeTruthy()
 			expect(response.body.post.author).toBeTruthy()
 			expect(response.body.post.created_at).toBeTruthy()
+		})
+		test('get auth user are author',  async () => {
+			const response = await request(app).get("/api/post/1/is_author").set(tokenAuth)
+			expect(response.statusCode).toBe(200)
+			expect(response.body.is_author).toBeTruthy()
+			// expect(response.body.msg).toBe("user is author")
+
+		})
+		test('get auth user are not author', async () => {
+			userModel.username = "gsdfsdfsfsijvsi"
+			const res = await request(app).post("/api/user/create").send(userModel)
+			expect(res.statusCode).toBe(201)
+			expect(res.body.token).toBeTruthy()
+			const anotherToken = {Authorization: `Bearer ${res.body.token}`}
+
+			const response = await request(app).get("/api/post/1/is_author").set(anotherToken)
+			expect(response.statusCode).toBe(403)
+			expect(response.body.is_author).not.toBeTruthy()
+			// expect()
+
 		})
 	})
 	describe('likes test', () => {
@@ -81,6 +101,35 @@ describe('test posts routes', () => {
 			const response = await request(app).get("/api/post/1/is_liked").set(tokenAuth)
 			expect(response.statusCode).toBe(200)
 			expect(response.body.has_like).not.toBeTruthy()
+		})
+	})
+	describe('delete posts', () => {
+		test('catch user is not author error', async () => {
+			userModel.username = "gsijvsi"
+			const res = await request(app).post("/api/user/create").send(userModel)
+			expect(res.statusCode).toBe(201)
+			expect(res.body.token).toBeTruthy()
+			const tokenSecond = {Authorization: `Bearer ${res.body.token}`}
+
+			const response = await request(app).delete("/api/post/1/delete").set(tokenSecond)
+
+			expect(response.statusCode).toBe(403)
+			expect(response.body.is_author).not.toBeTruthy()
+			// expect(response.body.msg).toBe("user are not author")
+		})
+		test('1 post', async () => {
+			const response = await request(app).delete("/api/post/1/delete").set(tokenAuth)
+
+			expect(response.statusCode).toBe(200)
+			expect(response.body.msg).toBeTruthy()
+			expect(response.body.msg).toBe("sucessfull deleting")
+
+		})
+		test('catch deleting not exist post', async () => {
+			const response = await request(app).delete("/api/post/1/delete").set(tokenAuth)
+			expect(response.statusCode).toBe(404)
+			expect(response.body.msg).toBeTruthy()
+			expect(response.body.msg).toBe("post with this id does not exist")
 		})
 	})
 })
