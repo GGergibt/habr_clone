@@ -16,7 +16,7 @@ router.get("/all", allPosts)
 
 router.get("/:id", getPost)
 
-router.get("/:id/is_author", authenticateToken, isAuthor, (req, res) => {res.json({msg: "user is author"})})
+router.get("/:id/is_author", authenticateToken, isAuthor, (req, res) => {res.json({is_author: true})})
 
 router.delete("/:id/delete", authenticateToken, isAuthor, deletePost)
 
