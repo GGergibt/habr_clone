@@ -1,21 +1,22 @@
 import React from 'react';
 
-import {useAllPostsQuery} from './store/backend.api'
+import { Routes, Route, Link } from 'react-router-dom'
 
-import PostList from './components/postList'
+import HomePage from './pages/homePage'
 
 function App() {
   // const {isLoading, isError, data} = useAllPostsQuery('jj')
-  const {isLoading, isError, data: posts} = useAllPostsQuery('')
-  console.log(posts)
+  // const {isLoading, isError, data: posts} = useAllPostsQuery('')
+  // console.log(posts)
   
 
   return (
 
-    <div className="flex justify-center">
-
-	    { posts&& <PostList posts={posts}/>}
-    </div>
+  <Routes>
+	  <Route path="/">
+		  <Route index element={<HomePage/>}/>
+	  </Route>
+  </Routes>
   );
 }
 
