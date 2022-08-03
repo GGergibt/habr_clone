@@ -17,14 +17,14 @@ export const createPost = async(req, res) => {
 }
 
 export const getPost = async(req, res) => {
-	const response = await query(`SELECT title, content, image_destination, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id WHERE p.id=${req.params.id} `)
+	const response = await query(`SELECT p.id, title, content, image_destination, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id WHERE p.id=${req.params.id} `)
 	res.json({post: response[0]})
 
 	res.end()
 }
 
 export const allPosts = async(req, res) => {
-	const response = await query('SELECT title, content, image_destination, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id')
+	const response = await query('SELECT p.id, title, content, image_destination, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id')
 	res.json({posts: response})
 	res.end()
 }
