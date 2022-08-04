@@ -29,7 +29,7 @@ export const loginUser = async (req, res) => {
 
 }
 
-export const getUserById = async (req, res) => {
+export const getCurrentUser = async (req, res) => {
 
 	await res.status(200).json(req.user)
 	

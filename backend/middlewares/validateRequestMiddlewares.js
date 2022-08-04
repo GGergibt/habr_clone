@@ -50,24 +50,42 @@ export const validatePostFields = async (req, res, next) => {
 		await res.status(400).json({"msg": "fields required"})
 	}
 	else {
-		next()
+			next()
 	}
 
+}
+
+const isExistQueryTemplate = async (type, field, table, id) => {
+	const response = await query(`SELECT ${field} FROM ${table} WHERE id=${id}`)	
+
+	if (response.length > 0) {
+		return response[0]
+	}
+
+	else{
+	      return {"msg": `${type} does not exists`}
+	}
+}
+
+export const isPostExists = async (req, res, next) => {
+	if(!req.params.id) {
+		await res.status(400).json({"msg": "id required"})
+	}
+	else {
+
+	const response = await isExistQueryTemplate('post', 'title', 'posts', req.params.id)
+	response.msg? res.status(400).json(response): next()
+	}
 }
 
 export const isUserExists = async(req, res, next) => {
 	if(!req.params.id) {
 		await res.status(400).json({"msg": "id required"})
 	}
+
 	else {
-		const response = await query(`SELECT username FROM user_table WHERE id=${req.params.id}`)	
-		if (response.length > 0) {
-			req.user = response[0]
-			next()
-		}
-		else{
-		      res.status(404).json({"msg": "user does not exist"})
-		}
+		const response = await isExistQueryTemplate('user', 'username', 'user_table', req.params.id)
+		response.msg? res.status(400).json(response): req.user = response; next()
 	}
 }
 
