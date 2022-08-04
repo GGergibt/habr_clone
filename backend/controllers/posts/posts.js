@@ -24,7 +24,7 @@ export const getPost = async(req, res) => {
 }
 
 export const allPosts = async(req, res) => {
-	const response = await query('SELECT p.id, title, description, content, image, username as author, created_at FROM posts p JOIN user_table user ON user.id=author_id')
+	const response = await query('SELECT p.id, title, description, content, image, username as author, created_at, COUNT(user_id) as likes_count FROM posts p JOIN user_table user ON user.id=author_id LEFT JOIN likes_of_posts ON p.id=post_id GROUP BY p.id')
 	res.json({posts: response})
 	res.end()
 }
