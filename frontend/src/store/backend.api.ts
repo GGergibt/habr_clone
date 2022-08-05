@@ -15,8 +15,14 @@ export const backendApi = createApi({
 				url: 'post/all'
 			}),
 			transformResponse: (response: ServerResponse) => response.posts
+		}),
+		getPost: build.query<IPost, number>({
+			query: (id: number) => ({
+				url: `post/${id}`
+			}),
+			transformResponse: (response: ServerResponse) => response.post
 		})
 	})
 })
 
-export const {useAllPostsQuery} = backendApi
+export const {useAllPostsQuery, useGetPostQuery} = backendApi

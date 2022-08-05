@@ -12,6 +12,7 @@ created_at: Date;
 
 export interface ServerResponse {
 	posts: IPost[];
+	post: IPost
 }
 
 
