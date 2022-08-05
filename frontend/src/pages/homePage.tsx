@@ -1,4 +1,4 @@
-import {useAllPostsQuery} from '../store/backend.api'
+import {useAllPostsQuery} from '../store/post.api'
 
 import PostList from '../components/postList'
 

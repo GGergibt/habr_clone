@@ -3,8 +3,8 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {ServerResponse, IPost} from '../models/models'
 
 
-export const backendApi = createApi({
-	reducerPath: 'api',
+export const postApi = createApi({
+	reducerPath: 'post',
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:8000/api"
 	}),
@@ -25,4 +25,4 @@ export const backendApi = createApi({
 	})
 })
 
-export const {useAllPostsQuery, useGetPostQuery} = backendApi
+export const {useAllPostsQuery, useGetPostQuery} = postApi

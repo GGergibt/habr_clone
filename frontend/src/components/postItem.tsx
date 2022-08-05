@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 
 const PostItem = ({ post }: { post: IPost}) => {
+	console.log("postItem")
 	return (
 		<>
 		<div className="container">

@@ -1,10 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit'
 
-import {backendApi} from './backend.api'
+import {postApi} from './post.api'
 
 export const store = configureStore({
 	reducer: {
-		[backendApi.reducerPath]: backendApi.reducer
+		[postApi.reducerPath]: postApi.reducer
 
 
 	}

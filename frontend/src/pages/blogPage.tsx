@@ -1,4 +1,4 @@
-import {useGetPostQuery} from '../store/backend.api'
+import {useGetPostQuery} from '../store/post.api'
 
 import {useParams} from 'react-router-dom'
 
