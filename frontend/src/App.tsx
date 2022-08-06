@@ -8,14 +8,9 @@ import BlogPage from './pages/blogPage'
 
 import Layout from './components/layout';
 
-function App() {
-  // const {isLoading, isError, data} = useAllPostsQuery('jj')
-  // const {isLoading, isError, data: posts} = useAllPostsQuery('')
-  // console.log(posts)
-	  // <Route path="/" element={<Layout/>}>
-	  // </Route>
-  
+import SignUpPage from './pages/signUpPage'
 
+function App() {
   return (
 
 	  <>
@@ -24,6 +19,7 @@ function App() {
 		  <Route path="/" element={<Layout/>}>
 		  <Route index element={<HomePage/>}/>
 		  <Route path="/blog/:id" element={<BlogPage />}/>
+		  <Route path="/signup" element={<SignUpPage/>}/>
 		  </Route>
 	  </Routes>
 	  </>
