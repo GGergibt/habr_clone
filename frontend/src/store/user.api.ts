@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
-import {ServerResponse, IPost} from '../models/models'
+import {ServerResponse, IPost, IUser} from '../models/models'
 
 
 export const userApi = createApi({
@@ -10,8 +10,8 @@ export const userApi = createApi({
 	}),
 
 	endpoints: build => ({
-		signUp: build.query<any, any>({
-			query: (bodyJson: any) => ({
+		signUp: build.query<IUser, IUser>({
+			query: (bodyJson: IUser) => ({
 				url: 'create',
 				method: 'post',
 				body: {
@@ -23,6 +23,17 @@ export const userApi = createApi({
 
 			})
 			// transformResponse: (response: ServerResponse) => response.posts
+		}),
+		login: build.query<any, any>({
+			query: (bodyJson: any) => ({
+				url: 'login',
+				method: 'post',
+				body: {
+					username: bodyJson.username,
+					password: bodyJson.password
+				}
+			})
+
 		})
 		// signUp: build.query<any, any>({
 
@@ -32,4 +43,4 @@ export const userApi = createApi({
 		})
 	})
 
-export const {useLazySignUpQuery} = userApi
+export const {useLazySignUpQuery, useLazyLoginQuery} = userApi

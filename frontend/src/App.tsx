@@ -10,6 +10,8 @@ import Layout from './components/layout';
 
 import SignUpPage from './pages/signUpPage'
 
+import LoginPage from './pages/loginPage'
+
 function App() {
   return (
 
@@ -20,6 +22,7 @@ function App() {
 		  <Route index element={<HomePage/>}/>
 		  <Route path="/blog/:id" element={<BlogPage />}/>
 		  <Route path="/signup" element={<SignUpPage/>}/>
+		  <Route path="/login" element={<LoginPage/>}/>
 		  </Route>
 	  </Routes>
 	  </>
