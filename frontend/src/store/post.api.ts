@@ -21,8 +21,19 @@ export const postApi = createApi({
 				url: `${id}`
 			}),
 			transformResponse: (response: ServerResponse) => response.post
+		}),
+		createPost: build.mutation<any, IPost>({
+			query: (post: IPost) => ({
+				url: 'create',
+				method: 'post',
+				body: {
+					title: post.title,
+					content: post.content
+
+				}
+			})
 		})
 	})
 })
 
-export const {useAllPostsQuery, useGetPostQuery} = postApi
+export const {useAllPostsQuery, useGetPostQuery, useCreatePostMutation} = postApi
