@@ -1,9 +1,9 @@
-import {useLazySignUpQuery} from '../store/user.api'
+import {useSignUpMutation} from '../store/user.api'
 
 import {useSendForm} from '../hooks/useSendForm'
 
 export const SignUpForm = () => {
-	const [sendUser, {isLoading, isError, data: response, error}] = useLazySignUpQuery({})
+	const [sendUser, {isLoading, isError, data: response, error}] = useSignUpMutation({})
 	//Судя по всему происходит какая то колизия переменных data в коде. лог отрабатывает при введении пароля в форме. Займись потом
 
 	const sendForm = useSendForm(sendUser)

@@ -10,7 +10,8 @@ export const userApi = createApi({
 	}),
 
 	endpoints: build => ({
-		signUp: build.query<IUser, IUser>({
+		// signUp: build.query<IUser, IUser>({
+		signUp: build.mutation<IUser, IUser>({
 			query: (bodyJson: IUser) => ({
 				url: 'create',
 				method: 'post',
@@ -43,4 +44,5 @@ export const userApi = createApi({
 		})
 	})
 
-export const {useLazySignUpQuery, useLazyLoginQuery} = userApi
+// export const {useLazySignUpQuery, useLazyLoginQuery} = userApi
+export const {useSignUpMutation, useLazyLoginQuery} = userApi
