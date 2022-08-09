@@ -1,12 +1,15 @@
 import {useSendForm} from '../hooks/useSendForm'
-
-
 import {useCreatePostMutation} from '../store/post.api'
 
+import {useCookies} from 'react-cookie'
+
 const PostForm = () => {
+	const [cookies, setCookies] = useCookies()
 	const [createPost, {isLoading, isError, data: response, error}] = useCreatePostMutation({})
 	const sendForm = useSendForm(createPost)
 	console.log(error)
+	console.log(response)
+
 
 	return (
 

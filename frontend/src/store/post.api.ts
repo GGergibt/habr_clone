@@ -3,6 +3,8 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {ServerResponse, IPost} from '../models/models'
 
 
+const token = document.cookie? document.cookie.split('=')[1]: 'not'
+// const headers = document.cookie? {Authorization: `Bearer ${token}`}
 export const postApi = createApi({
 	reducerPath: 'post',
 	baseQuery: fetchBaseQuery({
@@ -26,6 +28,7 @@ export const postApi = createApi({
 			query: (post: IPost) => ({
 				url: 'create',
 				method: 'post',
+				headers: { Authorization: `Bearer ${token}`},
 				body: {
 					title: post.title,
 					content: post.content
