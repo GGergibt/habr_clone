@@ -2,13 +2,17 @@ import {useSignUpMutation} from '../store/user.api'
 
 import {useSendForm} from '../hooks/useSendForm'
 
+import {useCreateCookieToken} from '../hooks/useCreateCookie'
+
 export const SignUpForm = () => {
 	const [sendUser, {isLoading, isError, data: response, error}] = useSignUpMutation({})
-	//Судя по всему происходит какая то колизия переменных data в коде. лог отрабатывает при введении пароля в форме. Займись потом
 
 	const sendForm = useSendForm(sendUser)
 	const password = sendForm.watch("password", "")
 	const confirmPassword = sendForm.watch("confirmPassword", "")
+
+	const cookies = useCreateCookieToken(response)
+
 
 	return (
 	  <>

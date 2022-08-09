@@ -1,11 +1,15 @@
 import {useLazyLoginQuery} from '../store/user.api'
 
 import {useSendForm} from '../hooks/useSendForm'
+import {useCreateCookieToken} from '../hooks/useCreateCookie'
+
 
 export const LoginForm = () => {
 	const [login, {isLoading, isError, data: response, error}] = useLazyLoginQuery({})
 
 	const sendForm = useSendForm(login)
+	const cookies = useCreateCookieToken(response)
+
 	return (
 	  <>
 	  <form onSubmit={sendForm.handleSubmit(sendForm.onSubmit)}>
