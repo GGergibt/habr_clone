@@ -16,6 +16,20 @@ export const createPost = async(req, res) => {
 
 }
 
+export const updatePost = async(req, res) => {
+	const __dirname = path.resolve();
+	const imagePath = req.name? req.name: null
+	if (req.body.created_at) {
+		const response = await query(`UPDATE posts SET title='${req.body.title}', content='${req.body.content}', image='${imagePath}', description='${req.body.description}' WHERE id=${req.body.post_id}`)
+	}
+	else{
+		const response = await query(`UPDATE posts SET title='${req.body.title}', content='${req.body.content}', description='${req.body.description}' WHERE id=${req.body.post_id}`)
+	}
+
+	res.status(201).json({"msg": "updated"})
+
+}
+
 export const getPost = async(req, res) => {
 	const response = await query(`SELECT p.id, title, description, content, image, username as author, created_at, COUNT(user_id) as likes_count FROM posts p JOIN user_table user ON user.id=author_id LEFT JOIN likes_of_posts ON p.id=post_id WHERE p.id=${req.params.id} `)
 	res.json({post: response[0]})
