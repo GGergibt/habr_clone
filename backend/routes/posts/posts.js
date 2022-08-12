@@ -17,7 +17,8 @@ router.get("/all", allPosts)
 
 router.get("/:id", isPostExists, getPost)
 
-router.put("/update", authenticateToken, upload.single('image'), validatePostFields, descriptionForPostIfEmpty, updatePost)
+router.put("/:id/update", authenticateToken, isAuthor, upload.single('image'), validatePostFields, descriptionForPostIfEmpty, updatePost)
+// router.put("/:id/update", authenticateToken, isAuthor, descriptionForPostIfEmpty, updatePost)
 
 
 router.get("/:id/is_author", authenticateToken, isAuthor, (req, res) => {res.json({is_author: true})})
