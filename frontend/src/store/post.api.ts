@@ -4,6 +4,7 @@ import {ServerResponse, IPost} from '../models/models'
 
 
 const token = document.cookie? document.cookie.split('=')[1]: 'not'
+console.log(token)
 // const headers = document.cookie? {Authorization: `Bearer ${token}`}
 export const postApi = createApi({
 	reducerPath: 'post',
@@ -18,16 +19,16 @@ export const postApi = createApi({
 			}),
 			transformResponse: (response: ServerResponse) => response.posts
 		}),
-		getPost: build.query<IPost, number>({
-			query: (id: number) => ({
+		getPost: build.query<IPost, number | undefined>({
+			query: (id: number | undefined) => ({
 				url: `${id}`
 			}),
 			transformResponse: (response: ServerResponse) => response.post
 		}),
 		createPost: build.mutation<any, IPost>({
 			query: (post: IPost) => ({
-				url: 'create',
-				method: 'post',
+				url: post.id? `${post.id}/update`: 'create',
+				method: post.id? 'put': 'post',
 				headers: { Authorization: `Bearer ${token}`},
 				body: {
 					title: post.title,
@@ -39,4 +40,4 @@ export const postApi = createApi({
 	})
 })
 
-export const {useAllPostsQuery, useGetPostQuery, useCreatePostMutation} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery} = postApi

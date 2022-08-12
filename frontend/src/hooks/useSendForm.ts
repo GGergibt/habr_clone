@@ -1,10 +1,12 @@
 import {useForm} from 'react-hook-form'
 
 export const useSendForm = (sendForm: Function) => {
-	const {register, formState: {errors}, handleSubmit, watch, reset} = useForm()
+	const {register, formState: {errors}, handleSubmit, watch, reset, setValue} = useForm()
 
 	const onSubmit = (data: any) => {
+		console.log(data)
 		sendForm(data)
+
 
 		reset()
 
@@ -15,7 +17,8 @@ export const useSendForm = (sendForm: Function) => {
 		errors,
 		handleSubmit,
 		onSubmit,
-		watch
+		watch,
+		setValue
 	}
 }
 
