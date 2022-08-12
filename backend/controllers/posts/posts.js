@@ -19,11 +19,12 @@ export const createPost = async(req, res) => {
 export const updatePost = async(req, res) => {
 	const __dirname = path.resolve();
 	const imagePath = req.name? req.name: null
+	console.log(imagePath)
 	if (req.body.created_at) {
 		const response = await query(`UPDATE posts SET title='${req.body.title}', content='${req.body.content}', image='${imagePath}', description='${req.body.description}' WHERE id=${req.body.post_id}`)
 	}
 	else{
-		const response = await query(`UPDATE posts SET title='${req.body.title}', content='${req.body.content}', description='${req.body.description}' WHERE id=${req.body.post_id}`)
+		const response = await query(`UPDATE posts SET title='${req.body.title}', content='${req.body.content}', image='${imagePath}', description='${req.body.description}' WHERE id=${req.body.post_id}`)
 	}
 
 	res.status(201).json({"msg": "updated"})
