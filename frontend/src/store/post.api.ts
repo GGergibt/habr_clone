@@ -29,15 +29,25 @@ export const postApi = createApi({
 			query: (post: IPost) => ({
 				url: post.id? `${post.id}/update`: 'create',
 				method: post.id? 'put': 'post',
-				headers: { Authorization: `Bearer ${token}`},
+				// headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data'},
+				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
 				body: {
 					title: post.title,
 					content: post.content
 
-				}
+				},
+			})
+		}),
+		// deletePost: build.query<any, any>({
+		deletePost: build.mutation<any, any>({
+			query: (id: any) => ({
+				url: `${id}/delete`,
+				method: 'delete',
+				headers: { Authorization: `Bearer ${token}`}
 			})
 		})
-	})
+})
 })
 
-export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery} = postApi
+// export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostQuery} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation} = postApi

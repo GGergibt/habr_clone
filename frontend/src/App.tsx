@@ -8,6 +8,7 @@ import Layout from './components/layout'
 import SignUpPage from './pages/signUpPage'
 import LoginPage from './pages/loginPage'
 import CreatePostPage from './pages/createPostPage'
+import DeletePostPage from './pages/deletePostPage'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 		  <Route path="/signup" element={<SignUpPage/>}/>
 		  <Route path="/login" element={<LoginPage/>}/>
 		  <Route path="/blog/create" element={<CreatePostPage/>}/>
+		  <Route path="/blog/:id/delete" element={<DeletePostPage/>}/>
 		  </Route>
 	  </Routes>
 	  </>
