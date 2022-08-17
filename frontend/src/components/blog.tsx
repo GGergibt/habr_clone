@@ -16,9 +16,6 @@ const Blog = ({post}: {post: IPost}) => {
 				<p>{post.content}</p>
 
 			</div>
-			<div>
-				<p>{post.likes_count}</p>
-			</div>
 		</div>
 		</>
 	)

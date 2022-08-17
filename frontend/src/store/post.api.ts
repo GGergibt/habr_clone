@@ -45,9 +45,16 @@ export const postApi = createApi({
 				method: 'delete',
 				headers: { Authorization: `Bearer ${token}`}
 			})
+		}),
+		likePost: build.mutation<any, number>({
+			query: (id: number) => ({
+				url: `${id}/like`,
+				method: 'post',
+				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
+			}),
 		})
 })
 })
 
 // export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostQuery} = postApi
-export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation} = postApi
