@@ -52,9 +52,16 @@ export const postApi = createApi({
 				method: 'post',
 				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
 			}),
+		}),
+		isAuthor: build.query<any, any>({
+			query: (authModel: any) => ({
+				url: `${authModel.id}/is_author`,
+				method: 'get',
+				headers: { Authorization: `Bearer ${authModel.token}`, 'Content-Type': 'application/json'}
+			}),
 		})
 })
 })
 
 // export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostQuery} = postApi
-export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation, useLazyIsAuthorQuery} = postApi
