@@ -3,14 +3,19 @@ import {Link} from 'react-router-dom'
 
 const Author = ({postId}: {postId: number}) => {
 	const isAuthor = useAuthor(postId)
-	console.log(isAuthor)
-
 
 	return (
 		<>
-		<Link to={`/blog/${postId}/delete`}>
-			Delete
-		</Link> 
+		{ isAuthor && <div>
+			<Link to={`/blog/${postId}/delete`}>
+				Delete
+			</Link> 
+			<Link to={`/blog/${postId}/edit`}>
+				edit
+			</Link> 
+			</div>
+		}
+
 		</>
 
 	)
