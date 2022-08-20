@@ -20,9 +20,10 @@ const Layout = () => {
 			}
 				
 			{user.isAuthorizited && 
-				<form onSubmit={signout}>
-					<button type="submit">Sign out</button>
-				</form>
+				<>
+					<Link to="/signout">Signout</Link>
+					<Link to="blog/my">my blogs</Link>
+				</>
 					}
 			</div>
 
