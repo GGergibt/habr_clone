@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {createPost, getPost, allPosts, deletePost, updatePost} from '../../controllers/posts/posts.js'
+import {createPost, getPost, allPosts, deletePost, userPosts, updatePost} from '../../controllers/posts/posts.js'
 import {authenticateToken} from '../../middlewares/jwtMiddlewares.js'
 import {validatePostFields, isPostExists} from '../../middlewares/validateRequestMiddlewares.js';
 import {upload} from '../../middlewares/uploadMiddleware.js'
@@ -15,10 +15,11 @@ router.post("/create", authenticateToken, upload.single('image'), validatePostFi
 
 router.get("/all", allPosts)
 
+router.get("/owned_by_user", authenticateToken, userPosts)
+
 router.get("/:id", isPostExists, getPost)
 
 router.put("/:id/update", authenticateToken, isAuthor, upload.single('image'), validatePostFields, descriptionForPostIfEmpty, updatePost)
-// router.put("/:id/update", authenticateToken, isAuthor, descriptionForPostIfEmpty, updatePost)
 
 
 router.get("/:id/is_author", authenticateToken, isAuthor, (req, res) => {res.json({is_author: true})})
