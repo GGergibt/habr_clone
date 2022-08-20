@@ -10,6 +10,7 @@ import LoginPage from './pages/loginPage'
 import CreatePostPage from './pages/createPostPage'
 import DeletePostPage from './pages/deletePostPage'
 import UserPostsPage from './pages/userPostsPage'
+import SignoutPage from './pages/signoutPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
 		  <Route path="/blog/:id/edit" element={<CreatePostPage />}/>
 		  <Route path="/blog/my" element={<UserPostsPage />}/>
 		  <Route path="/signup" element={<SignUpPage/>}/>
+		  <Route path="/signout" element={<SignoutPage/>}/>
 		  <Route path="/login" element={<LoginPage/>}/>
 		  <Route path="/blog/create" element={<CreatePostPage/>}/>
 		  <Route path="/blog/:id/delete" element={<DeletePostPage/>}/>
