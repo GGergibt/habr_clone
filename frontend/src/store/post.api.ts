@@ -25,6 +25,13 @@ export const postApi = createApi({
 			}),
 			transformResponse: (response: ServerResponse) => response.post
 		}),
+		userPosts: build.query<IPost[], string>({
+			query: (tokenAuth: string) => ({
+				url: '/owned_by_user',
+				headers: { Authorization: `Bearer ${tokenAuth}`, 'Content-Type': 'application/json'},
+			}),
+			transformResponse: (response: ServerResponse) => response.posts
+		}),
 		createPost: build.mutation<any, IPost>({
 			query: (post: IPost) => ({
 				url: post.id? `${post.id}/update`: 'create',
@@ -64,4 +71,4 @@ export const postApi = createApi({
 })
 
 // export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostQuery} = postApi
-export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation, useLazyIsAuthorQuery} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useLazyUserPostsQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation, useLazyIsAuthorQuery} = postApi
