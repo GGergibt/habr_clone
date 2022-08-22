@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
-import {ServerResponse, IPost, IUser} from '../models/models'
+import {ServerResponse, IPost, IUser, IToken} from '../models/models'
 
 
 export const userApi = createApi({
@@ -11,28 +11,20 @@ export const userApi = createApi({
 
 	endpoints: build => ({
 		// signUp: build.query<IUser, IUser>({
-		signUp: build.mutation<IUser, IUser>({
+		signUp: build.mutation<IToken, IUser>({
 			query: (bodyJson: IUser) => ({
 				url: 'create',
 				method: 'post',
-				body: {
-					username: bodyJson.username,
-					email: bodyJson.email,
-					password: bodyJson.password
-
-				}
+				body: bodyJson
 
 			})
 			// transformResponse: (response: ServerResponse) => response.posts
 		}),
-		login: build.query<any, any>({
+		login: build.query<IToken, any>({
 			query: (bodyJson: any) => ({
 				url: 'login',
 				method: 'post',
-				body: {
-					username: bodyJson.username,
-					password: bodyJson.password
-				}
+				body: bodyJson
 			})
 
 		})

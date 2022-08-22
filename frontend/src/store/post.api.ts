@@ -32,17 +32,12 @@ export const postApi = createApi({
 			}),
 			transformResponse: (response: ServerResponse) => response.posts
 		}),
-		createPost: build.mutation<any, IPost>({
-			query: (post: IPost) => ({
-				url: post.id? `${post.id}/update`: 'create',
-				method: post.id? 'put': 'post',
-				// headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data'},
-				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
-				body: {
-					title: post.title,
-					content: post.content
-
-				},
+		createPost: build.mutation<any, any>({
+			query: (post: any) => ({
+				url: post.has('id')? `${post.get('id')}/update`: 'create',
+				method: post.has('id')? 'put': 'post',
+				headers: { Authorization: `Bearer ${token}`},
+				body: post
 			})
 		}),
 		// deletePost: build.query<any, any>({
