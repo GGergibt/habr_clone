@@ -12,10 +12,15 @@ export const userApi = createApi({
 	endpoints: build => ({
 		// signUp: build.query<IUser, IUser>({
 		signUp: build.mutation<IToken, IUser>({
-			query: (bodyJson: IUser) => ({
+			query: (bodyJson: any) => ({
 				url: 'create',
 				method: 'post',
-				body: bodyJson
+				body: {
+					username: bodyJson.get('username'),
+					email: bodyJson.get('email'),
+					password: bodyJson.get('password')
+				}
+
 
 			})
 			// transformResponse: (response: ServerResponse) => response.posts
@@ -24,7 +29,10 @@ export const userApi = createApi({
 			query: (bodyJson: any) => ({
 				url: 'login',
 				method: 'post',
-				body: bodyJson
+				body: {
+					username: bodyJson.get('username'),
+					password: bodyJson.get('password')
+				}
 			})
 
 		})
