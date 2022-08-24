@@ -18,8 +18,8 @@ const Layout = () => {
 				<Menu.Item>
 				  {({ active }) => (
 					  <>
-						<Link className="py-2 px-4 " to="/login">login</Link>
-						<Link className="py-2 px-4" to="/signup">Sign up</Link>
+						<Link className="block" to="/login">login</Link>
+						<Link className="block" to="/signup">Sign up</Link>
 					</>
 				  )}
 				</Menu.Item>
@@ -28,8 +28,8 @@ const Layout = () => {
 				<Menu.Item>
 				  {({ active }) => (
 					<>
-						<Link to="/signout">Signout</Link>
-						<Link to="blog/my">my blogs</Link>
+						<Link className="block" to="/signout">Signout</Link>
+						<Link className="block" to="blog/my">my blogs</Link>
 					</>
 				  )}
 				</Menu.Item>
