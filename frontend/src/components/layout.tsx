@@ -1,37 +1,49 @@
 import {Link, Outlet} from 'react-router-dom'
 import {useAuth} from '../hooks/useAuth'
-import {useSignout} from '../hooks/useSignout'
+import { Menu } from '@headlessui/react'
 
 const Layout = () => {
 
 	const user = useAuth()
-	const signout = useSignout()
 	console.log(user.isAuthorizited)
 	console.log(typeof user.isAuthorizited)
 	return (
-		<>
-			<div>
+	<>
 				
+
+	      <Menu>
+		      <Menu.Button>More</Menu.Button>
+		      <Menu.Items>
 			{ user.isAuthorizited ??
-				<>	
-				<Link to="/signup">Sign up</Link>
-				<Link to="/login">login</Link>
-				</>
-			}
-				
+				<Menu.Item>
+				  {({ active }) => (
+					  <>
+						<Link className="py-2 px-4 " to="/login">login</Link>
+						<Link className="py-2 px-4" to="/signup">Sign up</Link>
+					</>
+				  )}
+				</Menu.Item>
+			      }
 			{user.isAuthorizited && 
-				<>
-					<Link to="/signout">Signout</Link>
-					<Link to="blog/my">my blogs</Link>
-				</>
-					}
-			</div>
+				<Menu.Item>
+				  {({ active }) => (
+					<>
+						<Link to="/signout">Signout</Link>
+						<Link to="blog/my">my blogs</Link>
+					</>
+				  )}
+				</Menu.Item>
+			      }
+
+		      </Menu.Items>
+	    </Menu>
 
 
-			<div>
-			<Outlet/>
-			</div>
-		</>
+
+	    <div>
+		<Outlet/>
+	    </div>
+	</>
 	)
 
 }
