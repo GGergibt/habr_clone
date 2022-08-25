@@ -1,14 +1,21 @@
 import {useLazyLoginQuery} from '../store/user.api'
-
 import {useSendForm} from '../hooks/useSendForm'
 import {useCreateCookieToken} from '../hooks/useCreateCookie'
+
+import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
 
 
 export const LoginForm = () => {
 	const [login, {isLoading, isError, data: response, error}] = useLazyLoginQuery({})
 
 	const sendForm = useSendForm(login)
+	const navigate = useNavigate()
 	const cookies = useCreateCookieToken(response)
+
+	useEffect(() => {
+		response && navigate('/')
+	}, [response])
 
 	return (
 	  <>

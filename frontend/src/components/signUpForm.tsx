@@ -1,4 +1,5 @@
 import {useSignUpMutation} from '../store/user.api'
+import {useNavigate} from 'react-router-dom'
 import {useEffect} from 'react'
 
 import {useSendForm} from '../hooks/useSendForm'
@@ -9,12 +10,17 @@ export const SignUpForm = () => {
 	const [sendUser, {isLoading, isError, data: response, error}] = useSignUpMutation({})
 
 	const sendForm = useSendForm(sendUser)
+	const navigate = useNavigate()
 	const password = sendForm.watch("password", "")
 	const confirmPassword = sendForm.watch("confirmPassword", "")
 
 
 	const cookies = useCreateCookieToken(response)
 
+
+	useEffect(() => {
+		response && navigate('/')
+	}, [response])
 
 
 	return (
