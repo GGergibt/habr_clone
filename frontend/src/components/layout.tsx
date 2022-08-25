@@ -40,7 +40,7 @@ const Layout = () => {
 
 
 
-	    <div>
+	    <div className="flex justify-center">
 		<Outlet/>
 	    </div>
 	</>
