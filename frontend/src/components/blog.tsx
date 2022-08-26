@@ -4,7 +4,7 @@ import {IPost} from '../models/models'
 const Blog = ({post}: {post: IPost}) => {
 	return (
 		<>
-		<div className="container">
+		<div>
 			<h2 className="my-6">
 				 {post.title} 
 			</h2>

@@ -14,9 +14,12 @@ const BlogPage = () => {
 	return (
 
 		<>
+			<div className="container block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
 			{post&& <Blog post={post}/>}
 			{post && <Likes post={post}/>}
 			{post && <Author postId={post.id}/>}
+			</div>
 
 		</>
 	)
