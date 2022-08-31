@@ -51,12 +51,14 @@ const Likes = ({post}: {post: IPost}) => {
 	return (
 		<>
 			{/* <form onSubmit={likeSubmit}> */}
+			<div className="container flex my-3">
 				<p>{likesCount}</p>
-				<button type='button' onClick={likeSubmit}>
+				<button className="pl-1" type='button' onClick={likeSubmit}>
 
 					{hasLike? <FontAwesomeIcon icon={faHeartSolid}/>: <FontAwesomeIcon icon={faHeartRegular} />}
 					{/* {user.isAuthorizited ?? 'jj'} */}
 				</button>
+			</div>
 			{/* </form> */}
 
 		</>
