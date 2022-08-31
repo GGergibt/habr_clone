@@ -3,14 +3,20 @@ import {useCreatePostMutation} from '../store/post.api'
 import {useEditPost} from '../hooks/useEditPost'
 import {useCookies} from 'react-cookie'
 import {useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const PostForm = () => {
 	const [createPost, {isLoading, isError, data: response, error}] = useCreatePostMutation({})
 	const [cookies, setCookies] = useCookies()
+	const navigate = useNavigate()
 	const sendForm = useSendForm(createPost)
 	const isEdit = useEditPost(sendForm.setValue)
 	console.log('jj')
 	console.log(error)
+
+	useEffect(() => {
+		response && navigate('/blog/my')
+	}, [response])
 
 
 	return (
