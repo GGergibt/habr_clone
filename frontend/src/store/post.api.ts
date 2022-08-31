@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
-import {ServerResponse, IPost} from '../models/models'
+import {ServerResponse, IPost, IPostWithToken} from '../models/models'
 
 
 const token = document.cookie? document.cookie.split('=')[1]: 'not'
@@ -48,11 +48,12 @@ export const postApi = createApi({
 				headers: { Authorization: `Bearer ${token}`}
 			})
 		}),
-		likePost: build.mutation<any, number>({
-			query: (id: number) => ({
-				url: `${id}/like`,
+		likePost: build.mutation<any, IPostWithToken>({
+			query: (post: IPostWithToken) => ({
+				url: `${post.id}/like`,
 				method: 'post',
-				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
+				headers: { Authorization: `Bearer ${post.token}`, 'Content-Type': 'application/json'}
+
 			}),
 		}),
 		isAuthor: build.query<any, any>({
@@ -61,9 +62,17 @@ export const postApi = createApi({
 				method: 'get',
 				headers: { Authorization: `Bearer ${authModel.token}`, 'Content-Type': 'application/json'}
 			}),
+		}),
+		isLiked: build.query<any, any>({
+			query: (details: any) => ({
+				url: `${details.postId}/is_liked`,
+				method: 'get',
+				headers: { Authorization: `Bearer ${details.token}`, 'Content-Type': 'application/json'}
+
+			}),
 		})
 })
 })
 
 // export const {useAllPostsQuery, useLazyGetPostQuery, useCreatePostMutation, useGetPostQuery, useDeletePostQuery} = postApi
-export const {useAllPostsQuery, useLazyGetPostQuery, useLazyUserPostsQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation, useLazyIsAuthorQuery} = postApi
+export const {useAllPostsQuery, useLazyGetPostQuery, useLazyUserPostsQuery, useCreatePostMutation, useGetPostQuery, useDeletePostMutation, useLikePostMutation, useLazyIsAuthorQuery, useLazyIsLikedQuery} = postApi
