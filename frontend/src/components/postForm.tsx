@@ -2,15 +2,27 @@ import {useSendForm} from '../hooks/useSendForm'
 import {useCreatePostMutation} from '../store/post.api'
 import {useEditPost} from '../hooks/useEditPost'
 import {useCookies} from 'react-cookie'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
 const PostForm = () => {
 	const [createPost, {isLoading, isError, data: response, error}] = useCreatePostMutation({})
 	const [cookies, setCookies] = useCookies()
+	const [imgObject, setImgObject] = useState('')
 	const navigate = useNavigate()
 	const sendForm = useSendForm(createPost)
 	const isEdit = useEditPost(sendForm.setValue)
+	const images = sendForm.watch('image', '')
+
+	useEffect(() => {
+		if (images) {
+		    console.log(images)
+		    setImgObject(URL.createObjectURL(images[0]));
+		    console.log(imgObject, 'jj')
+
+		}
+	}
+	, [images])
 	console.log('jj')
 	console.log(error)
 
@@ -32,6 +44,9 @@ const PostForm = () => {
               <div>
                   <label>Изображение </label>
 		      <input type="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...sendForm.register('image', {required: "Контент обязателен"})} placeholder="image"/>
+			<div className="container block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+				<img src={imgObject} alt='no image selected'/>
+			</div>
               </div>
               <div>
                   <label>Контент</label>
