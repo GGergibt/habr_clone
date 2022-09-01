@@ -17,7 +17,7 @@ const PostForm = () => {
 	useEffect(() => {
 		if (images) {
 		    console.log(images)
-		    setImgObject(URL.createObjectURL(images[0]));
+		    images[0] && setImgObject(URL.createObjectURL(images[0]));
 		    console.log(imgObject, 'jj')
 
 		}
