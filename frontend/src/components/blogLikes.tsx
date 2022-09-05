@@ -7,9 +7,11 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as faHeartSolid} from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons'
+import PopupLogin from './popupLogin' 
 
 const Likes = ({post}: {post: IPost}) => {
 	const [likeSend, {isLoading, isError, data: response, error}] = useLikePostMutation()
+	const [popup, setPopup] = useState(false)
 	const [hasLike, setHasLike] = useState(false)
 	const [likesCount, setLikesCount] = useState(post.likes_count)
 	const user = useAuth()
@@ -45,21 +47,19 @@ const Likes = ({post}: {post: IPost}) => {
 
 	const likeSubmit = (event: React.FormEvent) => {
 	    	event.preventDefault();
-		likeSend({id: post.id, token: user.token})
+		user.isAuthorizited? likeSend({id: post.id, token: user.token}): setPopup(true)
 
 	}
 	return (
 		<>
-			{/* <form onSubmit={likeSubmit}> */}
 			<div className="container flex my-3">
 				<p>{likesCount}</p>
 				<button className="pl-1" type='button' onClick={likeSubmit}>
 
 					{hasLike? <FontAwesomeIcon icon={faHeartSolid}/>: <FontAwesomeIcon icon={faHeartRegular} />}
-					{/* {user.isAuthorizited ?? 'jj'} */}
 				</button>
 			</div>
-			{/* </form> */}
+			{popup && <PopupLogin setPopup={setPopup}/>}
 
 		</>
 	)
