@@ -7,7 +7,7 @@ import {useEffect} from 'react'
 
 
 export const LoginForm = () => {
-	const [login, {isLoading, isError, data: response, error}] = useLazyLoginQuery({})
+	const [login, {isLoading, isError, data: response, error: errorRaw}] = useLazyLoginQuery({})
 
 	const sendForm = useSendForm(login)
 	const navigate = useNavigate()
@@ -16,6 +16,16 @@ export const LoginForm = () => {
 	useEffect(() => {
 		response && navigate('/')
 	}, [response])
+
+	const errorHandling = (error: any) => {
+		alert(error.msg)
+	}
+
+	useEffect(() => {
+	if (errorRaw && 'status' in errorRaw) {
+			errorHandling(errorRaw.data)
+		}
+	}, [errorRaw])
 
 	return (
 	  <>
