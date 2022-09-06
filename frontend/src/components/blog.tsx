@@ -10,7 +10,7 @@ const Blog = ({post}: {post: IPost}) => {
 			</h2>
 
 			<div>
-				<img src={`http://localhost:8000/${post.image}`}>
+				<img className="object-cover h-48 w-96 ..." src={`http://localhost:8000/${post.image}`}>
 				</img>
 
 				<p>{post.content}</p>

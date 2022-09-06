@@ -1,6 +1,10 @@
 import {IPost} from '../models/models'
 
 import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons'
+import Likes from './blogLikes';
+
 
 
 const PostItem = ({ post }: { post: IPost}) => {
@@ -8,7 +12,8 @@ const PostItem = ({ post }: { post: IPost}) => {
 	console.log(post)
 	return (
 		<>
-		<Link to={`/blog/${post.id}`} className="container block p-6 my-5 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+		<div className="container block p-6 my-5 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+		<Link to={`/blog/${post.id}`} >
 			<div>
 				<p>{post.author}</p>
 			</div>
@@ -18,17 +23,21 @@ const PostItem = ({ post }: { post: IPost}) => {
 				</Link> 
 			</h2>
 
-			<div>
-				<img src={`http://localhost:8000/${post.image}`}>
-				</img>
+			<div className="">
+				{<img  className="object-cover h-48 w-96 ..." src={`http://localhost:8000/${post.image}`}>
+				</img>}
 
 				<p>{post.description}</p>
 
 			</div>
-			<div>
-				<p>{post.likes_count}</p>
-			</div>
-		</Link>
+			{/* <div className="flex"> */}
+			{/* 	<p>{post.likes_count}</p> */}
+			{/* 	  <FontAwesomeIcon className="my-1 pl-1" icon={faHeartRegular} /> */}
+			{/* </div> */}
+			</Link>
+			<Likes post={post}/>
+		</div>
+
 		</>
 	)
 }
